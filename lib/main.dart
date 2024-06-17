@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'components/slider_card.dart';
 import 'constants.dart';
 import 'components/gender_card.dart';
-import 'components/mutable_card.dart';
+import 'pages/input_page.dart';
 
 void main() {
   runApp(const HomePage());
 }
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,119 +28,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme:
+            ThemeData(scaffoldBackgroundColor: const Color(appBackgroundColor)),
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            backgroundColor: Color(appBackgroundColor),
             appBar: AppBar(
-                title: Text(
+                title: const Text(
                   'BMI CALCULATOR',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-                backgroundColor: Color(appBarColor)),
-            body: Column(
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GenderCard(
-                            gender: Gender.male,
-                            cardColor: selectedGender == Gender.male
-                                ? activeCardColor
-                                : inActiveCardColor,
-                            textColor: selectedGender == Gender.male
-                                ? activeCardTextColor
-                                : inActiveCardTextColor,
-                            onTap: () {
-                              setState(() => updateGender(Gender.male));
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Expanded(
-                          child: GenderCard(
-                            gender: Gender.female,
-                            cardColor: selectedGender == Gender.female
-                                ? activeCardColor
-                                : inActiveCardColor,
-                            textColor: selectedGender == Gender.female
-                                ? activeCardTextColor
-                                : inActiveCardTextColor,
-                            onTap: () {
-                              setState(() => updateGender(Gender.female));
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-                SizedBox(
-                  height: 10.0,
-                ),
-                SliderCard(
-                  onChanged: (double newHeight) {
-                    setState(() {
-                      selectedHeight = newHeight;
-                    });
-                  },
-                  currentValue: selectedHeight,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      MutableCard(
-                        title: 'WEIGHT',
-                        currentValue: selectedWeight,
-                        onIncrement: () {
-                          setState(() {
-                            selectedWeight++;
-                          });
-                        },
-                        onDecrement: () {
-                          setState(() {
-                            selectedWeight--;
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      MutableCard(
-                        title: 'AGE',
-                        currentValue: selectedAge,
-                        onIncrement: () {
-                          setState(() {
-                            selectedAge++;
-                          });
-                        },
-                        onDecrement: () {
-                          setState(() {
-                            selectedAge--;
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                )),
-                Container(
-                    margin: EdgeInsets.only(top: 40.0),
-                    height: bottomButtonHeight,
-                    color: Color(bottomButtonColor),
-                    child: Center(child: Text('CALCULATE YOUR BMI')))
-              ],
-            )));
+                backgroundColor: const Color(appBarColor)),
+            body: const InputPage()));
   }
 }
-
